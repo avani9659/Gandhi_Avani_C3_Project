@@ -5,6 +5,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -18,7 +20,7 @@ class RestaurantTest {
     public void setup(){
         LocalTime openingTime = LocalTime.parse("10:30:00");
         LocalTime closingTime = LocalTime.parse("22:00:00");
-        restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
+        restaurant = new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
         restaurant.addToMenu("Sweet corn soup",119);
         restaurant.addToMenu("Vegetable lasagne", 269);
     }
@@ -66,4 +68,31 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    @Test
+    public void display_total_amount_should_return_119_when_sweet_corn_soup_is_selected(){
+        List<String> selectedItems = new ArrayList<>();
+        selectedItems.add("Sweet corn soup");
+        int totalAmount = restaurant.displayTotalAmount(selectedItems);
+
+        assertThat(totalAmount, equalTo(119));
+    }
+
+    @Test
+    public void display_total_amount_should_return_388_when_sweet_corn_soup_and_vegetable_lasagne_is_selected(){
+        List<String> selectedItems = new ArrayList<>();
+        selectedItems.add("Sweet corn soup");
+        selectedItems.add("Vegetable lasagne");
+        int totalAmount = restaurant.displayTotalAmount(selectedItems);
+
+        assertThat(totalAmount, equalTo(388));
+    }
+
+    @Test
+    public void display_total_amount_should_return_0_when_no_item_is_selected(){
+        List<String> selectedItems = new ArrayList<>();
+        int totalAmount = restaurant.displayTotalAmount(selectedItems);
+
+        assertThat(totalAmount, equalTo(388));
+    }
 }

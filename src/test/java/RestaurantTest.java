@@ -93,6 +93,6 @@ class RestaurantTest {
         List<String> selectedItems = new ArrayList<>();
         int totalAmount = restaurant.displayTotalAmount(selectedItems);
 
-        assertThat(totalAmount, equalTo(388));
+        assertThat(totalAmount, equalTo(0));
     }
 }
